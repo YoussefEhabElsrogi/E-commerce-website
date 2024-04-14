@@ -1,4 +1,21 @@
-,<?php require_once './connection/config.php'; ?>
+<?php require_once './connection/config.php'; ?>
+<?php require_once './inc/funtions.php'; ?>
+<?php require_once './inc/sessions.php'; ?>
+
+<?php session_start(); ?>
+
+<?php
+
+  $id = $_GET['id'];
+
+  $select = "SELECT * FROM `products` WHERE `id` = $id";
+
+  $result = mysqli_query($conn, $select);
+
+  $row = mysqli_fetch_array($result);
+
+?>  
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,14 +35,31 @@
 <body>
   <center>
     <div class="main">
-      <form action="./handelers/handelHome.php" method="POST" enctype="multipart/form-data">
+      <form action="./handelers/handelUpdate.php" method="POST" enctype="multipart/form-data">
         <h2>تعديل المنتجات</h2>
-        <input type="text" name="id"><br>
-        <input type="text" name='name'><br>
-        <input type="text" name='price'><br>
+        <?php if (issetSession('errors')): ?>
+          <div class="style">
+            <?php foreach ($_SESSION['errors'] as $error): ?>
+              <div class="error" role="alert">
+                <?php echo $error; ?>
+              </div>
+            <?php endforeach; ?>
+          </div>
+          <?php removeSession('errors'); endif; ?>
+
+        <?php if (issetSession('success')): ?>
+          <div class="style">
+            <div class="success" role="alert">
+              <?php echo $_SESSION['success']; ?>
+            </div>
+          </div>
+          <?php removeSession('success'); endif; ?>
+        <input type="text" name="id" value="<?php echo isset($row['id']) ? $row['id'] : '' ?>" disabled><br>
+        <input type="text" name='name' value="<?php echo isset($row['name']) ? $row['name'] : '' ?>"><br>
+        <input type="text" name='price' value="<?php echo isset($row['price']) ? $row['price'] : '' ?>"><br>
         <input type="file" id="file" name='image' style='display:none;'>
         <label for="file">تحديث صورة للمنتج</label>
-        <button name='upload'>تعديل المنتج</button><br><br>
+        <button name='update'>تعديل المنتج</button><br><br>
         <a href="products.php">عرض كل المنتجات</a>
       </form>
     </div>

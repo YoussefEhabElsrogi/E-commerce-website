@@ -9,7 +9,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
   $id = $_GET['id'];
 
-  $delete = "DELETE FROM `products` WHERE id = '$id'";
+  $delete = "DELETE FROM `products` WHERE id = $id";
 
   $result = mysqli_query($conn, $delete);
 
