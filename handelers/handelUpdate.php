@@ -9,13 +9,21 @@ require_once './../inc/sessions.php';
 
 $errors = [];
 
-if (postMethod() && issetPostInput('update')) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  $id = $_POST['id'];
+  // $id = $_POST['id'];
+
+  // echo $id;
+  // die;
 
   foreach ($_POST as $key => $value) {
     $$key = reciveInput($value);
   }
+
+  print_r($_POST);
+
+  echo $id;
+  die;
 
   // Validate the 'name' field
   if (requiredInput($name)) {

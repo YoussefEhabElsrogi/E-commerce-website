@@ -6,15 +6,28 @@
 
 <?php
 
-  $id = $_GET['id'];
+// if (!isset($_GET['id'])) {
+//   redirectPage('index.php');
+// } 
 
-  $select = "SELECT * FROM `products` WHERE `id` = $id";
 
-  $result = mysqli_query($conn, $select);
+$id = $_GET['id'];
+
+$select = "SELECT * FROM `products` WHERE `id` = $id LIMIT 1";
+
+$result = mysqli_query($conn, $select);
+
+if (mysqli_num_rows($result) > 0) {
 
   $row = mysqli_fetch_array($result);
 
-?>  
+} else {
+  redirectPage('products.php');
+}
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,24 +50,8 @@
     <div class="main">
       <form action="./handelers/handelUpdate.php" method="POST" enctype="multipart/form-data">
         <h2>تعديل المنتجات</h2>
-        <?php if (issetSession('errors')): ?>
-          <div class="style">
-            <?php foreach ($_SESSION['errors'] as $error): ?>
-              <div class="error" role="alert">
-                <?php echo $error; ?>
-              </div>
-            <?php endforeach; ?>
-          </div>
-          <?php removeSession('errors'); endif; ?>
-
-        <?php if (issetSession('success')): ?>
-          <div class="style">
-            <div class="success" role="alert">
-              <?php echo $_SESSION['success']; ?>
-            </div>
-          </div>
-          <?php removeSession('success'); endif; ?>
-        <input type="text" name="id" value="<?php echo isset($row['id']) ? $row['id'] : '' ?>" disabled><br>
+        <input type="text" name="id" value="<?= $row['id']?>" disabled><br>
+        <input type="text" name="val">
         <input type="text" name='name' value="<?php echo isset($row['name']) ? $row['name'] : '' ?>"><br>
         <input type="text" name='price' value="<?php echo isset($row['price']) ? $row['price'] : '' ?>"><br>
         <input type="file" id="file" name='image' style='display:none;'>
