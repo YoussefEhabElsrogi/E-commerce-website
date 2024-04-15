@@ -11,19 +11,11 @@ $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  // $id = $_POST['id'];
-
-  // echo $id;
-  // die;
-
   foreach ($_POST as $key => $value) {
     $$key = reciveInput($value);
   }
 
-  print_r($_POST);
-
-  echo $id;
-  die;
+  $id = $_POST['id'];
 
   // Validate the 'name' field
   if (requiredInput($name)) {

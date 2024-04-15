@@ -50,8 +50,7 @@ if (mysqli_num_rows($result) > 0) {
     <div class="main">
       <form action="./handelers/handelUpdate.php" method="POST" enctype="multipart/form-data">
         <h2>تعديل المنتجات</h2>
-        <input type="text" name="id" value="<?= $row['id']?>" disabled><br>
-        <input type="text" name="val">
+        <input type="text" name="id" value="<?php echo isset($row['id']) ? $row['id'] : '' ?>">
         <input type="text" name='name' value="<?php echo isset($row['name']) ? $row['name'] : '' ?>"><br>
         <input type="text" name='price' value="<?php echo isset($row['price']) ? $row['price'] : '' ?>"><br>
         <input type="file" id="file" name='image' style='display:none;'>
