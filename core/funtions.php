@@ -47,3 +47,7 @@ function issetValue($value)
 {
   return isset($value);
 }
+function deleteImage($pathImage)
+{
+  unlink($pathImage);
+}
