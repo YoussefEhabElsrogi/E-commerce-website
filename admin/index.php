@@ -21,7 +21,7 @@
     <div class="main">
       <form action="./handelers/handelHome.php" method="POST" enctype="multipart/form-data">
         <h2>موقع تسويقي اونلاين</h2>
-        <h3 class="title">e-commerce  </h3>
+        <h3 class="title">e-commerce </h3>
 
         <?php if (issetSession('errors')): ?>
           <div class="style">
